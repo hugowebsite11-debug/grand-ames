@@ -285,6 +285,9 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
   position:absolute;left:50%;top:44%;z-index:3;
   transform:translate(-50%, -50%);
   display:flex;flex-direction:column;align-items:center;gap:26px;
+  /* fades out right as the fill finishes, crossfading with .hero-intro fading in over
+     the same .88 -> 1 window */
+  opacity:clamp(0, calc((1 - var(--hero-progress)) / .12), 1);
 }
 .logo-stack{
   position:relative;width:min(480px, 62vw);aspect-ratio:518/164;
