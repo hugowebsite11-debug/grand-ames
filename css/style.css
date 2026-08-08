@@ -180,29 +180,29 @@ section{position:relative;}
   transition:background .2s ease;
 }
 
-/* homepage-specific: header is transparent + invisible over the hero; a separate big
-   logo lives centered in the hero itself (see .hero-logo) and fades out as the header's
-   own compact logo/nav fade in — a hand-off rather than one element morphing into another */
-body.home .site-header.scrolled::before{
-  background:rgba(255,255,255,.9);
-  backdrop-filter:blur(10px);
-  box-shadow:0 12px 28px -6px rgba(132,94,153,.5);
-}
+/* homepage: no header chrome at all — just a hamburger floating directly on the
+   fixed background photo (see .page-bg), no frame, no logo, no nav row, no button.
+   Its colour swaps once real (non-photo) content has scrolled behind it, so it
+   stays legible without ever gaining a background box. */
+body.home .site-header::before{display:none;}
+body.home .site-header .container{justify-content:flex-start;}
 body.home .brand-logo,
-body.home .main-nav,
-body.home .nav-cta,
-body.home .burger{
-  opacity:var(--hero-progress);
-  transition:opacity .2s ease;
+body.home .nav-cta{display:none;}
+body.home .burger{display:flex;}
+body.home .burger span{background:var(--white);}
+body.home .site-header.scrolled .burger span{background:var(--violet-dark);}
+
+/* on the homepage the nav is always the full-screen overlay opened by the hamburger,
+   at any viewport width (not just mobile) */
+body.home .main-nav{
+  position:fixed;inset:0;background:var(--cream);
+  display:flex;align-items:center;justify-content:center;
+  transform:translateX(100%);transition:transform .4s ease;
+  z-index:99;
 }
-body.home .site-header:not(.revealed) .brand-logo,
-body.home .site-header:not(.revealed) .main-nav,
-body.home .site-header:not(.revealed) .nav-cta,
-body.home .site-header:not(.revealed) .burger{
-  pointer-events:none;
-}
-body.home .brand-logo img{filter:none;}
-body.home .main-nav a{color:var(--violet-dark);}
+body.home .main-nav.open{transform:translateX(0);}
+body.home .main-nav ul{flex-direction:column;text-align:center;gap:26px;}
+body.home .main-nav a{color:var(--violet-dark)!important;font-size:1.1rem;}
 
 /* inner pages: standard sticky header */
 body:not(.home) .site-header::before{
@@ -223,8 +223,6 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
   .main-nav ul{flex-direction:column;text-align:center;gap:26px;}
   .main-nav a{color:var(--violet-dark)!important;font-size:1.1rem;}
   .burger{display:flex;}
-  body.home .main-nav{opacity:1!important;transform:translateX(100%);}
-  body.home .main-nav.open{transform:translateX(0);}
 
   .hero-logo{transform:translate(calc(-50% + var(--hero-progress) * 90px), -50%) scale(calc(1 - var(--hero-progress) * .12));}
 }
@@ -232,6 +230,23 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
 /* =========================================================
    HERO (homepage) — pinned while it dissolves away on scroll
    ========================================================= */
+/* the photo lives here, permanently fixed to the viewport behind the entire page —
+   every section after it has its own opaque background and simply scrolls over it */
+.page-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+.page-bg img{width:100%;height:100%;object-fit:cover;}
+.page-bg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(46,34,51,.2) 0%, rgba(46,34,51,.6) 100%);
+}
+/* everything else stacks in its own context, above .page-bg regardless of which
+   individual children happen to be positioned */
+.content-stack{position:relative;z-index:1;}
+/* every direct section gets an opaque backing by default so it fully covers the fixed
+   photo as it scrolls over it — .hero-pin-wrap (a div, not a section) stays exempt so
+   the photo shows through during the intro. More specific rules (.cta-band, .graph-bg…)
+   still win over this default. */
+:where(.content-stack > section){background:var(--cream);}
+
 .hero-pin-wrap{
   position:relative;height:175vh;
   /* 0 until the hero-logo has mostly faded out, then ramps to 1 and holds — drives .hero-intro's entrance */
@@ -241,12 +256,6 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
   position:sticky;top:0;height:100vh;min-height:640px;
   display:flex;align-items:flex-end;justify-content:center;
   overflow:hidden;
-}
-.hero-media{position:absolute;inset:0;z-index:0;}
-.hero-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);}
-.hero-media::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg, rgba(46,34,51,.2) 0%, rgba(46,34,51,.6) 100%);
 }
 .hero-scroll-cue{
   position:relative;z-index:2;margin-bottom:44px;
