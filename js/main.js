@@ -5,6 +5,8 @@
   const header = document.querySelector('.site-header');
   const isHome = document.body.classList.contains('home');
   const heroWrap = document.querySelector('.hero-pin-wrap');
+  const heroEl = document.querySelector('.hero');
+  const logoStack = document.querySelector('.logo-stack');
 
   /* ---------- scroll-driven hero dissolve (pinned hero, see .hero-pin-wrap) ---------- */
   function onScroll() {
@@ -17,6 +19,20 @@
       // heroWrap's full height, not just the sticky "budget") scrolls past it
       header.classList.toggle('scrolled', window.scrollY >= heroWrap.offsetHeight - 60);
       header.classList.toggle('revealed', progress > 0.05);
+
+      // sync the logo's white->violet clip to the *actual* on-screen position of the
+      // rising fill, rather than a guessed scroll fraction — measured live so it lines
+      // up exactly regardless of viewport size
+      if (logoStack && heroEl) {
+        const heroH = heroEl.getBoundingClientRect().height;
+        const logoRect = logoStack.getBoundingClientRect();
+        const logoTop = logoRect.top; // hero's own top is 0 while pinned
+        const logoBottom = logoRect.bottom;
+        const fillTop = heroH * (1 - progress);
+        let logoFill = (logoBottom - fillTop) / (logoBottom - logoTop);
+        logoFill = Math.min(1, Math.max(0, logoFill));
+        root.style.setProperty('--logo-fill', logoFill.toFixed(3));
+      }
     } else if (header) {
       header.classList.toggle('scrolled', window.scrollY > 40);
     }

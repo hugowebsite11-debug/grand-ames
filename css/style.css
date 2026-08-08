@@ -37,6 +37,7 @@
   --container:1240px;
 
   --hero-progress:0; /* set by JS on scroll, 0 -> 1 */
+  --logo-fill:0; /* set by JS on scroll, 0 -> 1 */
 }
 
 *,*::before,*::after{box-sizing:border-box;}
@@ -234,8 +235,6 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
   .main-nav ul{flex-direction:column;text-align:center;gap:26px;}
   .main-nav a{color:var(--violet-dark)!important;font-size:1.1rem;}
   .burger{display:flex;}
-
-  .hero-logo{transform:translate(calc(-50% + var(--hero-progress) * 90px), -50%) scale(calc(1 - var(--hero-progress) * .12));}
 }
 
 /* =========================================================
@@ -258,18 +257,14 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
    still win over this default. */
 :where(.content-stack > section){background:var(--cream);}
 
-.hero-pin-wrap{
-  position:relative;height:175vh;
-  /* 0 until the hero-logo has mostly faded out, then ramps to 1 and holds — drives .hero-intro's entrance */
-  --intro-progress:clamp(0, calc((var(--hero-progress) - .55) / .4), 1);
-}
+.hero-pin-wrap{position:relative;height:175vh;}
 .hero{
   position:sticky;top:0;height:100vh;min-height:640px;
   display:flex;align-items:flex-end;justify-content:center;
   overflow:hidden;
 }
 .hero-scroll-cue{
-  position:relative;z-index:2;margin-bottom:44px;
+  position:relative;z-index:4;margin-bottom:44px;
   color:var(--white);font-family:var(--font-script);font-size:1.1rem;
   display:flex;flex-direction:column;align-items:center;gap:6px;
   opacity:calc(1 - var(--hero-progress) * 3);
@@ -277,38 +272,37 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
 }
 @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
 
-.hero-logo{
-  position:absolute;left:50%;top:44%;z-index:2;
-  transform:translate(calc(-50% + var(--hero-progress) * 220px), -50%) scale(calc(1 - var(--hero-progress) * .12));
-  display:flex;flex-direction:column;align-items:center;gap:26px;
-  opacity:calc(1 - var(--hero-progress) * 1.6);
+/* the white "water level", rising from the bottom as you scroll, fully covering the
+   hero right as the pin lets go — like the photo is being filled up */
+.hero-fill{
+  position:absolute;inset:auto 0 0 0;z-index:1;
+  height:calc(var(--hero-progress) * 100%);
+  background:linear-gradient(to bottom, transparent 0, var(--cream) 60px, var(--cream) 100%);
   pointer-events:none;
 }
-.hero-logo img{
-  width:min(480px, 62vw);
+
+.hero-logo{
+  position:absolute;left:50%;top:44%;z-index:3;
+  transform:translate(-50%, -50%);
+  display:flex;flex-direction:column;align-items:center;gap:26px;
+}
+.logo-stack{
+  position:relative;width:min(480px, 62vw);aspect-ratio:518/164;
+  /* --logo-fill is computed live in JS from the actual on-screen position of the rising
+     fill vs. the logo, so the white/violet split lines up exactly with the waterline */
+}
+.logo-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;}
+.logo-layer-white{
+  clip-path:inset(0 0 calc(var(--logo-fill) * 100%) 0);
   filter:drop-shadow(0 10px 30px rgba(0,0,0,.35));
 }
-.hero-logo .btn{pointer-events:auto;}
+.logo-layer-violet{clip-path:inset(calc((1 - var(--logo-fill)) * 100%) 0 0 0);}
+.hero-logo .btn{opacity:calc(1 - var(--hero-progress) * 2.2);pointer-events:auto;}
 
-/* the "bloc du bas" — text-only swap over the static hero photo, no dissolve */
-.hero-intro{
-  position:absolute;left:50%;top:50%;z-index:3;
-  width:min(640px, 88vw);
-  text-align:center;
-  transform:translate(calc(-50% + (1 - var(--intro-progress)) * -280px), -50%);
-  opacity:var(--intro-progress);
-  pointer-events:none;
-}
-.hero-intro .btn{pointer-events:auto;}
-.hero-intro .eyebrow{color:var(--yellow);}
-.hero-intro h1{
-  font-size:clamp(1.8rem,3.6vw,2.9rem);margin-inline:auto;
-  color:var(--white);text-shadow:0 4px 20px rgba(46,34,51,.5);
-}
-.hero-intro .lede{
-  max-width:560px;margin:18px auto 30px;font-size:1.05rem;
-  color:rgba(255,255,255,.92);text-shadow:0 2px 12px rgba(46,34,51,.45);
-}
+/* the "bloc du bas" — a normal section, appearing once the fill has fully taken over */
+.hero-intro-section{padding:130px 0 110px;text-align:center;}
+.hero-intro-section h1{font-size:clamp(2rem,4vw,3.1rem);max-width:800px;margin-inline:auto;}
+.hero-intro-section .lede{max-width:600px;margin:20px auto 34px;color:var(--ink-soft);font-size:1.08rem;}
 
 /* =========================================================
    PEGBOARD — planning teaser (homepage only)
