@@ -14,10 +14,9 @@
       const scrollBudget = heroWrap.offsetHeight - window.innerHeight;
       const progress = scrollBudget > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollBudget)) : 1;
       root.style.setProperty('--hero-progress', progress.toFixed(3));
-      // the hamburger sits white as long as the fixed photo is still visible behind its
-      // top-left corner — that's true until the next section's opaque top edge (at
-      // heroWrap's full height, not just the sticky "budget") scrolls past it
-      header.classList.toggle('scrolled', window.scrollY >= heroWrap.offsetHeight - 60);
+      // the hamburger turns violet the moment the white fill has fully taken over (the
+      // photo is no longer visible behind it anywhere, including up at the header)
+      header.classList.toggle('scrolled', progress >= 1);
       header.classList.toggle('revealed', progress > 0.05);
 
       // sync the logo's white->violet clip to the *actual* on-screen position of the

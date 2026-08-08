@@ -299,10 +299,18 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
 .logo-layer-violet{clip-path:inset(calc((1 - var(--logo-fill)) * 100%) 0 0 0);}
 .hero-logo .btn{opacity:calc(1 - var(--hero-progress) * 2.2);pointer-events:auto;}
 
-/* the "bloc du bas" — a normal section, appearing once the fill has fully taken over */
-.hero-intro-section{padding:130px 0 110px;text-align:center;}
-.hero-intro-section h1{font-size:clamp(2rem,4vw,3.1rem);max-width:800px;margin-inline:auto;}
-.hero-intro-section .lede{max-width:600px;margin:20px auto 34px;color:var(--ink-soft);font-size:1.08rem;}
+/* the "bloc du bas" — lives inside the same pinned scene, popping in right as the
+   fill finishes, so nothing more needs to be scrolled to see it */
+.hero-intro{
+  position:absolute;left:50%;top:70%;z-index:3;
+  width:min(640px, 88vw);text-align:center;
+  transform:translate(-50%, -50%);
+  opacity:clamp(0, calc((var(--hero-progress) - .88) / .1), 1);
+  pointer-events:none;
+}
+.hero-intro .btn{pointer-events:auto;}
+.hero-intro h1{font-size:clamp(1.7rem,3.4vw,2.6rem);max-width:640px;margin-inline:auto;}
+.hero-intro .lede{max-width:560px;margin:16px auto 26px;color:var(--ink-soft);font-size:1rem;}
 
 /* =========================================================
    PEGBOARD — planning teaser (homepage only)
