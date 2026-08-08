@@ -1,34 +1,32 @@
 /* =========================================================
-   LES GRAND'AMES — design system
-   Palette: violet foncé #845E99 · jaune #EFEFC1 · violet clair #D7B7D8
-            rouge bordeaux #802B2C · rose #A85689
-   Direction: club entre copines — textured, playful, scrapbook-y.
-   Not sober/editorial. Homepage carries the flair; inner pages stay legible.
+   LES GRAND'AMES — design system, v2
+   Palette: violet foncé #845E99 · jaune #FFFFD9 · violet clair #D7B7D8 (tint of violet only)
+   No red/bordeaux/rose — violet + yellow are the only accent colors, everything else is white.
+   Direction: Vogue-editorial — thin high-contrast serif, premium, quiet.
+   The grid/quadrillage pegboard layout stays as before, just recolored.
    ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Caveat:wght@500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500;600;700&display=swap');
 
 :root{
   /* charte colors */
   --violet-dark:#845E99;
   --violet-dark-ink:#5c3f6e;
-  --yellow:#EFEFC1;
+  --yellow:#FFFFD9;
   --violet-light:#D7B7D8;
-  --bordeaux:#802B2C;
-  --rose:#A85689;
 
   /* derived neutrals */
   --ink:#2E2233;
   --ink-soft:#5a4d63;
-  --cream:#FBF7EA;
-  --paper:#FFFDF7;
+  --cream:#FFFFFF;
+  --paper:#FFFFFF;
   --white:#ffffff;
   --line:rgba(46,34,51,.14);
 
   /* type */
-  --font-display:'Fraunces', serif;
-  --font-script:'Caveat', cursive;
-  --font-body:'Nunito', sans-serif;
+  --font-display:'Bodoni Moda', serif;
+  --font-script:'Bodoni Moda', serif;
+  --font-body:'Jost', sans-serif;
 
   /* fx */
   --shadow-soft:0 18px 40px -18px rgba(46,34,51,.35);
@@ -93,14 +91,14 @@ section{position:relative;}
 
 .tape{
   position:absolute;width:76px;height:26px;
-  background:repeating-linear-gradient(135deg, rgba(255,255,255,.55), rgba(255,255,255,.55) 4px, rgba(239,239,193,.75) 4px, rgba(239,239,193,.75) 8px);
+  background:repeating-linear-gradient(135deg, rgba(255,255,255,.55), rgba(255,255,255,.55) 4px, rgba(255,255,217,.75) 4px, rgba(255,255,217,.75) 8px);
   border:1px solid rgba(46,34,51,.08);
   box-shadow:0 3px 8px rgba(46,34,51,.15);
   opacity:.92;
 }
 .pin{
   position:absolute;width:16px;height:16px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%, #ffffff, var(--bordeaux) 65%, #5c1c1c 100%);
+  background:radial-gradient(circle at 35% 30%, #ffffff, var(--violet-dark) 65%, #3d2a49 100%);
   box-shadow:0 3px 5px rgba(0,0,0,.35);
   z-index:3;
 }
@@ -113,11 +111,12 @@ section{position:relative;}
 /* ---------- eyebrow / script accents ---------- */
 .eyebrow{
   font-family:var(--font-script);
-  font-size:1.5rem;
-  color:var(--bordeaux);
+  font-style:italic;
+  font-size:1.3rem;
+  color:var(--violet-dark);
   display:inline-block;
   margin-bottom:.15em;
-  transform:rotate(-2deg);
+  letter-spacing:.01em;
 }
 .tag{
   display:inline-flex;align-items:center;gap:8px;
@@ -135,13 +134,15 @@ section{position:relative;}
   cursor:pointer;transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
   white-space:nowrap;
 }
-.btn:hover{transform:translateY(-3px) rotate(-.4deg);}
-.btn-primary{background:var(--bordeaux);color:var(--yellow);box-shadow:var(--shadow-card);}
-.btn-primary:hover{background:#6d2323;}
-.btn-outline{background:transparent;border-color:var(--ink);color:var(--ink);}
-.btn-outline:hover{background:var(--ink);color:var(--yellow);}
-.btn-light{background:var(--yellow);color:var(--ink);}
+.btn:hover{transform:translateY(-3px);}
+.btn-primary{background:var(--violet-dark);color:var(--yellow);box-shadow:var(--shadow-card);}
+.btn-primary:hover{background:#6d4b80;}
+.btn-outline{background:transparent;border-color:var(--violet-dark);color:var(--violet-dark);}
+.btn-outline:hover{background:var(--violet-dark);color:var(--yellow);}
+.btn-light{background:var(--yellow);color:var(--violet-dark);}
 .btn-light:hover{background:#fff;}
+.btn-violet{background:var(--violet-dark);color:var(--yellow);}
+.btn-violet:hover{background:#6d4b80;}
 .btn-sm{padding:10px 20px;font-size:.8rem;}
 .btn[disabled]{opacity:.5;cursor:not-allowed;transform:none;}
 
@@ -183,7 +184,7 @@ section{position:relative;}
    logo lives centered in the hero itself (see .hero-logo) and fades out as the header's
    own compact logo/nav fade in — a hand-off rather than one element morphing into another */
 body.home .site-header.scrolled::before{
-  background:rgba(251,247,234,.94);
+  background:rgba(255,255,255,.9);
   backdrop-filter:blur(10px);
   box-shadow:0 12px 28px -6px rgba(132,94,153,.5);
 }
@@ -205,7 +206,7 @@ body.home .main-nav a{color:var(--violet-dark);}
 
 /* inner pages: standard sticky header */
 body:not(.home) .site-header::before{
-  background:rgba(251,247,234,.96);
+  background:rgba(255,255,255,.94);
   backdrop-filter:blur(10px);
   box-shadow:0 12px 28px -6px rgba(132,94,153,.5);
 }
@@ -310,7 +311,7 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
 .peg-card .peg-photo{height:180px;border-radius:4px 4px 0 0;overflow:hidden;}
 .peg-card .peg-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;}
 .peg-body{padding:18px 18px 22px;}
-.peg-date{font-family:var(--font-script);color:var(--bordeaux);font-size:1.15rem;}
+.peg-date{font-family:var(--font-script);font-style:italic;color:var(--violet-dark);font-size:1.15rem;}
 .peg-body h3{font-size:1.15rem;margin:.15em 0 .35em;}
 .peg-body p{font-size:.87rem;color:var(--ink-soft);margin-bottom:14px;}
 .peg-price{font-weight:800;font-size:.85rem;color:var(--violet-dark-ink);}
@@ -342,8 +343,6 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
 .cta-band-yellow{background:var(--yellow);}
 .cta-band-yellow h2{color:var(--violet-dark);}
 .cta-band-yellow p{color:var(--violet-dark-ink);}
-.btn-violet{background:var(--violet-dark);color:var(--yellow);}
-.btn-violet:hover{background:#6d4b80;}
 
 /* =========================================================
    split feature (partenariat / apropos teasers)
@@ -357,10 +356,10 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
 .split-media img{border-radius:var(--radius);box-shadow:var(--shadow-soft);}
 .split-media .sticker{
   position:absolute;bottom:-26px;left:-26px;
-  background:var(--yellow);color:var(--bordeaux);
+  background:var(--yellow);color:var(--violet-dark);
   width:118px;height:118px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;text-align:center;
-  font-family:var(--font-script);font-size:1.05rem;line-height:1.15;
+  font-family:var(--font-script);font-style:italic;font-size:1.05rem;line-height:1.15;
   transform:rotate(-8deg);box-shadow:var(--shadow-card);
 }
 .split-copy h2{font-size:clamp(1.8rem,3.2vw,2.5rem);}
@@ -380,10 +379,10 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
 .social-icons a{
   width:56px;height:56px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  background:var(--white);border:2px solid var(--ink);
+  background:var(--white);border:2px solid var(--violet-dark);color:var(--violet-dark);
   transition:transform .3s ease, background .3s ease, color .3s ease;
 }
-.social-icons a:hover{background:var(--bordeaux);border-color:var(--bordeaux);color:var(--yellow);transform:translateY(-4px) rotate(-6deg);}
+.social-icons a:hover{background:var(--violet-dark);border-color:var(--violet-dark);color:var(--yellow);transform:translateY(-4px);}
 .social-icons svg{width:22px;height:22px;}
 
 /* =========================================================
@@ -393,7 +392,7 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
   background:var(--ink);color:var(--yellow);
   padding:70px 0 30px;
 }
-.footer-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(239,239,193,.18);}
+.footer-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,217,.18);}
 .footer-brand{display:flex;flex-direction:column;gap:14px;max-width:340px;}
 .footer-logo{height:38px;width:auto;}
 .footer-brand p{color:#cfc3d9;font-size:.92rem;margin:0;}
@@ -403,9 +402,9 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
 .footer-col a:hover{opacity:1;text-decoration:underline;}
 .footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:26px;font-size:.8rem;color:#a698b3;}
 .footer-social{display:flex;gap:12px;}
-.footer-social a{width:38px;height:38px;border-radius:50%;border:1px solid rgba(239,239,193,.3);display:flex;align-items:center;justify-content:center;}
+.footer-social a{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,217,.3);display:flex;align-items:center;justify-content:center;}
 .footer-social svg{width:16px;height:16px;}
-.footer-social a:hover{background:var(--yellow);color:var(--ink);}
+.footer-social a:hover{background:var(--yellow);color:var(--violet-dark);}
 
 /* =========================================================
    PAGE HEADER (inner pages)
@@ -432,11 +431,11 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
 .atelier-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;}
 .atelier-badge{
   position:absolute;top:16px;left:16px;
-  background:var(--yellow);color:var(--ink);
+  background:var(--yellow);color:var(--violet-dark);
   font-weight:800;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
   padding:7px 13px;border-radius:99px;
 }
-.atelier-badge.complet{background:var(--bordeaux);color:var(--yellow);}
+.atelier-badge.complet{background:var(--violet-dark);color:var(--yellow);}
 .atelier-body{padding:26px 28px 28px;flex:1;display:flex;flex-direction:column;}
 .atelier-meta{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-soft);margin-bottom:10px;font-weight:700;}
 .atelier-meta span{display:inline-flex;align-items:center;gap:6px;}
@@ -482,16 +481,16 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
    EVJF / anniversaire page
    ========================================================= */
 .banner-marquee{
-  background:var(--bordeaux);color:var(--yellow);
+  background:var(--violet-dark);color:var(--yellow);
   padding:16px 0;overflow:hidden;white-space:nowrap;
 }
-.banner-marquee .track{display:inline-block;animation:marquee 22s linear infinite;font-family:var(--font-script);font-size:1.3rem;}
+.banner-marquee .track{display:inline-block;animation:marquee 22s linear infinite;font-family:var(--font-script);font-style:italic;font-size:1.3rem;}
 .banner-marquee .track span{margin:0 26px;}
 @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding:20px 0 110px;}
 .why-card{background:var(--paper);padding:34px 28px;border-radius:var(--radius);box-shadow:var(--shadow-card);}
-.why-card .num{font-family:var(--font-script);color:var(--bordeaux);font-size:2rem;}
+.why-card .num{font-family:var(--font-script);font-style:italic;color:var(--violet-dark);font-size:2rem;}
 @media (max-width:880px){.why-grid{grid-template-columns:1fr;}}
 
 .carousel-strip{display:flex;gap:22px;overflow-x:auto;padding:10px 0 30px;scrollbar-width:thin;}
@@ -522,7 +521,7 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
 .story-media img{border-radius:var(--radius);box-shadow:var(--shadow-soft);}
 .story-copy blockquote{
   font-family:var(--font-display);font-style:italic;font-size:1.2rem;
-  border-left:3px solid var(--rose);padding-left:20px;color:var(--ink-soft);margin:20px 0;
+  border-left:3px solid var(--violet-dark);padding-left:20px;color:var(--ink-soft);margin:20px 0;
 }
 @media (max-width:880px){.story{grid-template-columns:1fr;padding:60px 0;}}
 
