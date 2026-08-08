@@ -12,7 +12,10 @@
       const scrollBudget = heroWrap.offsetHeight - window.innerHeight;
       const progress = scrollBudget > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollBudget)) : 1;
       root.style.setProperty('--hero-progress', progress.toFixed(3));
-      header.classList.toggle('scrolled', progress > 0.8);
+      // the hamburger sits white as long as the fixed photo is still visible behind its
+      // top-left corner — that's true until the next section's opaque top edge (at
+      // heroWrap's full height, not just the sticky "budget") scrolls past it
+      header.classList.toggle('scrolled', window.scrollY >= heroWrap.offsetHeight - 60);
       header.classList.toggle('revealed', progress > 0.05);
     } else if (header) {
       header.classList.toggle('scrolled', window.scrollY > 40);
@@ -68,14 +71,24 @@
   /* ---------- mobile nav ---------- */
   const burger = document.querySelector('.burger');
   const nav = document.querySelector('.main-nav');
+  const navClose = document.querySelector('.nav-close');
   if (burger && nav) {
     burger.addEventListener('click', () => {
       nav.classList.toggle('open');
       burger.classList.toggle('open');
     });
     nav.querySelectorAll('a').forEach((a) =>
-      a.addEventListener('click', () => nav.classList.remove('open'))
+      a.addEventListener('click', () => {
+        nav.classList.remove('open');
+        burger.classList.remove('open');
+      })
     );
+    if (navClose) {
+      navClose.addEventListener('click', () => {
+        nav.classList.remove('open');
+        burger.classList.remove('open');
+      });
+    }
   }
 
   /* ---------- reveal on scroll ---------- */

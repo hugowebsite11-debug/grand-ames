@@ -173,6 +173,14 @@ section{position:relative;}
 .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px;}
 .burger span{width:26px;height:2px;background:var(--violet-dark);border-radius:2px;}
 
+.nav-close{
+  position:absolute;top:28px;right:28px;
+  background:none;border:0;cursor:pointer;
+  font-size:2.2rem;line-height:1;font-weight:300;
+  color:var(--violet-dark);
+  padding:8px;
+}
+
 /* header background lives on a pseudo-element (not .site-header itself) so that
    backdrop-filter never becomes a new containing block for the fixed .main-nav overlay */
 .site-header::before{
@@ -185,10 +193,13 @@ section{position:relative;}
    Its colour swaps once real (non-photo) content has scrolled behind it, so it
    stays legible without ever gaining a background box. */
 body.home .site-header::before{display:none;}
-body.home .site-header .container{justify-content:flex-start;}
 body.home .brand-logo,
 body.home .nav-cta{display:none;}
-body.home .burger{display:flex;}
+/* pinned directly to the true viewport edge — .container is centered with a max-width,
+   so it doesn't reach the edge on wide screens, which is why this can't just sit in flow */
+body.home .burger{
+  display:flex;position:fixed;top:24px;left:20px;z-index:101;
+}
 body.home .burger span{background:var(--white);}
 body.home .site-header.scrolled .burger span{background:var(--violet-dark);}
 
