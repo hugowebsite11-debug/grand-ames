@@ -1,38 +1,17 @@
 // Les Grand'Ames — shared front-end behaviour
 
 (function () {
-  const root = document.documentElement;
   const header = document.querySelector('.site-header');
   const isHome = document.body.classList.contains('home');
-  const heroWrap = document.querySelector('.hero-pin-wrap');
   const heroEl = document.querySelector('.hero');
-  const logoStack = document.querySelector('.logo-stack');
 
-  /* ---------- scroll-driven hero dissolve (pinned hero, see .hero-pin-wrap) ---------- */
+  /* ---------- header state on scroll ---------- */
   function onScroll() {
-    if (isHome && heroWrap) {
-      const scrollBudget = heroWrap.offsetHeight - window.innerHeight;
-      const progress = scrollBudget > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollBudget)) : 1;
-      root.style.setProperty('--hero-progress', progress.toFixed(3));
-      // the hamburger turns violet the moment the white fill has fully taken over (the
-      // photo is no longer visible behind it anywhere, including up at the header)
-      header.classList.toggle('scrolled', progress >= 1);
-      header.classList.toggle('revealed', progress > 0.05);
-
-      // sync the logo's white->violet clip to the *actual* on-screen position of the
-      // rising fill, rather than a guessed scroll fraction — measured live so it lines
-      // up exactly regardless of viewport size
-      if (logoStack && heroEl) {
-        const heroH = heroEl.getBoundingClientRect().height;
-        const logoRect = logoStack.getBoundingClientRect();
-        const logoTop = logoRect.top; // hero's own top is 0 while pinned
-        const logoBottom = logoRect.bottom;
-        const fillTop = heroH * (1 - progress);
-        let logoFill = (logoBottom - fillTop) / (logoBottom - logoTop);
-        logoFill = Math.min(1, Math.max(0, logoFill));
-        root.style.setProperty('--logo-fill', logoFill.toFixed(3));
-      }
-    } else if (header) {
+    if (!header) return;
+    if (isHome && heroEl) {
+      // the hamburger turns from white to black once the photo is mostly scrolled past
+      header.classList.toggle('scrolled', window.scrollY > heroEl.offsetHeight * 0.8);
+    } else {
       header.classList.toggle('scrolled', window.scrollY > 40);
     }
   }

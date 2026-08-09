@@ -31,13 +31,10 @@
   /* fx */
   --shadow-soft:0 18px 40px -18px rgba(46,34,51,.35);
   --shadow-card:0 14px 30px -14px rgba(46,34,51,.28);
-  --radius:22px;
-  --radius-sm:12px;
+  --radius:0;
+  --radius-sm:0;
 
   --container:1240px;
-
-  --hero-progress:0; /* set by JS on scroll, 0 -> 1 */
-  --logo-fill:0; /* set by JS on scroll, 0 -> 1 */
 }
 
 *,*::before,*::after{box-sizing:border-box;}
@@ -124,28 +121,27 @@ section{position:relative;}
   font-family:var(--font-body);font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
   color:var(--violet-dark-ink);
   background:var(--violet-light);
-  padding:7px 14px;border-radius:99px;
+  padding:7px 14px;border-radius:0;
 }
 
-/* ---------- buttons ---------- */
+/* ---------- buttons — square, black/white, Vogue-style ---------- */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  font-family:var(--font-body);font-weight:800;font-size:.92rem;letter-spacing:.02em;
-  padding:15px 30px;border-radius:99px;border:2px solid transparent;
-  cursor:pointer;transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+  font-family:var(--font-body);font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:16px 32px;border-radius:0;border:1.5px solid transparent;
+  cursor:pointer;transition:background .25s ease, color .25s ease, border-color .25s ease;
   white-space:nowrap;
 }
-.btn:hover{transform:translateY(-3px);}
-.btn-primary{background:var(--violet-dark);color:var(--yellow);box-shadow:var(--shadow-card);}
-.btn-primary:hover{background:#6d4b80;}
-.btn-outline{background:transparent;border-color:var(--violet-dark);color:var(--violet-dark);}
-.btn-outline:hover{background:var(--violet-dark);color:var(--yellow);}
-.btn-light{background:var(--yellow);color:var(--violet-dark);}
-.btn-light:hover{background:#fff;}
-.btn-violet{background:var(--violet-dark);color:var(--yellow);}
-.btn-violet:hover{background:#6d4b80;}
-.btn-sm{padding:10px 20px;font-size:.8rem;}
-.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-primary{background:var(--ink);color:var(--white);}
+.btn-primary:hover{background:#000;}
+.btn-outline{background:transparent;border-color:var(--ink);color:var(--ink);}
+.btn-outline:hover{background:var(--ink);color:var(--white);}
+.btn-light{background:var(--white);color:var(--ink);}
+.btn-light:hover{background:var(--yellow);}
+.btn-violet{background:var(--ink);color:var(--white);}
+.btn-violet:hover{background:#000;}
+.btn-sm{padding:12px 22px;font-size:.7rem;}
+.btn[disabled]{opacity:.5;cursor:not-allowed;}
 
 /* =========================================================
    HEADER — scroll-driven logo migration (homepage)
@@ -168,19 +164,24 @@ section{position:relative;}
 }
 .main-nav a:hover, .main-nav a.active{border-color:currentColor;}
 
-.nav-cta{background:var(--violet-dark);color:var(--yellow);box-shadow:var(--shadow-card);}
-.nav-cta:hover{background:#6d4b80;}
+.nav-cta{background:var(--ink);color:var(--white);box-shadow:var(--shadow-card);}
+.nav-cta:hover{background:#000;}
 
 .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px;}
-.burger span{width:26px;height:2px;background:var(--violet-dark);border-radius:2px;}
+.burger span{width:26px;height:2px;background:var(--ink);border-radius:2px;}
 
+/* only meaningful once .main-nav becomes the full-screen overlay (home, or inner
+   pages under the mobile breakpoint) — hidden by default so it can't strand itself
+   in the header on inner pages at desktop width, where nav is just an inline row */
 .nav-close{
+  display:none;
   position:absolute;top:28px;right:28px;
   background:none;border:0;cursor:pointer;
   font-size:2.2rem;line-height:1;font-weight:300;
-  color:var(--violet-dark);
+  color:var(--ink);
   padding:8px;
 }
+body.home .nav-close{display:block;}
 
 /* header background lives on a pseudo-element (not .site-header itself) so that
    backdrop-filter never becomes a new containing block for the fixed .main-nav overlay */
@@ -202,7 +203,7 @@ body.home .burger{
   display:flex;position:fixed;top:24px;left:20px;z-index:101;
 }
 body.home .burger span{background:var(--white);}
-body.home .site-header.scrolled .burger span{background:var(--violet-dark);}
+body.home .site-header.scrolled .burger span{background:var(--ink);}
 
 /* on the homepage the nav is always the full-screen overlay opened by the hamburger,
    at any viewport width (not just mobile) */
@@ -214,15 +215,15 @@ body.home .main-nav{
 }
 body.home .main-nav.open{transform:translateX(0);}
 body.home .main-nav ul{flex-direction:column;text-align:center;gap:26px;}
-body.home .main-nav a{color:var(--violet-dark)!important;font-size:1.1rem;}
+body.home .main-nav a{color:var(--ink)!important;font-size:1.1rem;}
 
 /* inner pages: standard sticky header */
 body:not(.home) .site-header::before{
   background:rgba(255,255,255,.94);
   backdrop-filter:blur(10px);
-  box-shadow:0 12px 28px -6px rgba(132,94,153,.5);
+  box-shadow:0 12px 28px -6px rgba(0,0,0,.12);
 }
-body:not(.home) .main-nav a{color:var(--violet-dark);}
+body:not(.home) .main-nav a{color:var(--ink);}
 
 @media (max-width:900px){
   .main-nav{
@@ -233,87 +234,31 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
   }
   .main-nav.open{transform:translateX(0);}
   .main-nav ul{flex-direction:column;text-align:center;gap:26px;}
-  .main-nav a{color:var(--violet-dark)!important;font-size:1.1rem;}
+  .main-nav a{color:var(--ink)!important;font-size:1.1rem;}
   .burger{display:flex;}
+  .nav-close{display:block;}
 }
 
 /* =========================================================
-   HERO (homepage) — pinned while it dissolves away on scroll
+   HERO (homepage) — plain static image, scrolls normally, no animation
    ========================================================= */
-/* the photo lives here, permanently fixed to the viewport behind the entire page —
-   every section after it has its own opaque background and simply scrolls over it */
-.page-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;}
-.page-bg img{width:100%;height:100%;object-fit:cover;}
-.page-bg::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg, rgba(46,34,51,.2) 0%, rgba(46,34,51,.6) 100%);
-}
-/* everything else stacks in its own context, above .page-bg regardless of which
-   individual children happen to be positioned */
-.content-stack{position:relative;z-index:1;}
-/* every direct section gets an opaque backing by default so it fully covers the fixed
-   photo as it scrolls over it — .hero-pin-wrap (a div, not a section) stays exempt so
-   the photo shows through during the intro. More specific rules (.cta-band, .graph-bg…)
-   still win over this default. */
-:where(.content-stack > section){background:var(--cream);}
-
-.hero-pin-wrap{position:relative;height:175vh;}
 .hero{
-  position:sticky;top:0;height:100vh;min-height:640px;
-  display:flex;align-items:flex-end;justify-content:center;
-  overflow:hidden;
+  position:relative;height:100vh;min-height:640px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
 }
-.hero-scroll-cue{
-  position:relative;z-index:4;margin-bottom:44px;
-  color:var(--white);font-family:var(--font-script);font-size:1.1rem;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  opacity:calc(1 - var(--hero-progress) * 3);
-  animation:bob 2.4s ease-in-out infinite;
+.hero-media{position:absolute;inset:0;z-index:0;}
+.hero-media img{width:100%;height:100%;object-fit:cover;}
+.hero-media::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,.1) 0%, rgba(0,0,0,.4) 100%);
 }
-@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+.hero-logo{position:relative;z-index:1;}
+.hero-logo img{width:min(420px, 58vw);filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));}
 
-/* the white "water level", rising from the bottom as you scroll, fully covering the
-   hero right as the pin lets go — like the photo is being filled up */
-.hero-fill{
-  position:absolute;inset:auto 0 0 0;z-index:1;
-  height:calc(var(--hero-progress) * 100%);
-  background:linear-gradient(to bottom, transparent 0, var(--cream) 60px, var(--cream) 100%);
-  pointer-events:none;
-}
-
-.hero-logo{
-  position:absolute;left:50%;top:44%;z-index:3;
-  transform:translate(-50%, -50%);
-  display:flex;flex-direction:column;align-items:center;gap:26px;
-  /* fades out right as the fill finishes, crossfading with .hero-intro fading in over
-     the same .88 -> 1 window */
-  opacity:clamp(0, calc((1 - var(--hero-progress)) / .12), 1);
-}
-.logo-stack{
-  position:relative;width:min(480px, 62vw);aspect-ratio:518/164;
-  /* --logo-fill is computed live in JS from the actual on-screen position of the rising
-     fill vs. the logo, so the white/violet split lines up exactly with the waterline */
-}
-.logo-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;}
-.logo-layer-white{
-  clip-path:inset(0 0 calc(var(--logo-fill) * 100%) 0);
-  filter:drop-shadow(0 10px 30px rgba(0,0,0,.35));
-}
-.logo-layer-violet{clip-path:inset(calc((1 - var(--logo-fill)) * 100%) 0 0 0);}
-.hero-logo .btn{opacity:calc(1 - var(--hero-progress) * 2.2);pointer-events:auto;}
-
-/* the "bloc du bas" — lives inside the same pinned scene, popping in right as the
-   fill finishes, so nothing more needs to be scrolled to see it */
-.hero-intro{
-  position:absolute;left:50%;top:70%;z-index:3;
-  width:min(640px, 88vw);text-align:center;
-  transform:translate(-50%, -50%);
-  opacity:clamp(0, calc((var(--hero-progress) - .88) / .1), 1);
-  pointer-events:none;
-}
-.hero-intro .btn{pointer-events:auto;}
-.hero-intro h1{font-size:clamp(1.7rem,3.4vw,2.6rem);max-width:640px;margin-inline:auto;}
-.hero-intro .lede{max-width:560px;margin:16px auto 26px;color:var(--ink-soft);font-size:1rem;}
+/* intro statement right under the hero — plain, no scroll animation */
+.intro{padding:120px 0 100px;text-align:center;}
+.intro h1{font-size:clamp(2rem,4vw,3.1rem);max-width:800px;margin-inline:auto;}
+.intro .lede{max-width:600px;margin:20px auto 34px;color:var(--ink-soft);font-size:1.08rem;}
 
 /* =========================================================
    PEGBOARD — planning teaser (homepage only)
@@ -359,11 +304,15 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
    CTA band
    ========================================================= */
 .cta-band{
-  background:var(--violet-dark);color:var(--yellow);
+  background:var(--ink);color:var(--white);
   padding:90px 0;text-align:center;position:relative;overflow:hidden;
 }
-.cta-band h2{color:var(--yellow);font-size:clamp(1.9rem,3.6vw,2.8rem);}
-.cta-band p{color:#e8dcef;max-width:560px;margin:16px auto 30px;}
+.cta-band h2{color:var(--white);font-size:clamp(1.9rem,3.6vw,2.8rem);}
+.cta-band p{color:#cfcad2;max-width:560px;margin:16px auto 30px;}
+.cta-band .btn-primary,
+.cta-band .btn-violet{background:var(--white);color:var(--ink);}
+.cta-band .btn-primary:hover,
+.cta-band .btn-violet:hover{background:var(--yellow);}
 
 .cta-band-yellow{background:var(--yellow);}
 .cta-band-yellow h2{color:var(--violet-dark);}
@@ -458,7 +407,7 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
   position:absolute;top:16px;left:16px;
   background:var(--yellow);color:var(--violet-dark);
   font-weight:800;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
-  padding:7px 13px;border-radius:99px;
+  padding:7px 13px;border-radius:0;
 }
 .atelier-badge.complet{background:var(--violet-dark);color:var(--yellow);}
 .atelier-body{padding:26px 28px 28px;flex:1;display:flex;flex-direction:column;}
@@ -496,10 +445,10 @@ body:not(.home) .main-nav a{color:var(--violet-dark);}
 .field{margin-bottom:16px;}
 .field label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;}
 .field input, .field select, .field textarea{
-  width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);
+  width:100%;padding:12px 14px;border-radius:0;border:1.5px solid var(--line);
   font-family:var(--font-body);font-size:.95rem;background:var(--white);
 }
-.field input:focus, .field select:focus, .field textarea:focus{outline:2px solid var(--violet-dark);border-color:transparent;}
+.field input:focus, .field select:focus, .field textarea:focus{outline:2px solid var(--ink);border-color:transparent;}
 .modal-note{font-size:.78rem;color:var(--ink-soft);margin-top:14px;}
 
 /* =========================================================
