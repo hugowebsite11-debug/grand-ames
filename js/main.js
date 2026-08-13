@@ -3,38 +3,28 @@
 (function () {
   const header = document.querySelector('.site-header');
   const isHome = document.body.classList.contains('home');
-  const heroEl = document.querySelector('.hero');
+  const heroWrap = document.querySelector('.hero-pin-wrap');
+  const card = document.querySelector('.intro-card');
 
-  /* ---------- header state on scroll ---------- */
+  /* ---------- hero stays pinned (frozen) until the intro card has fully slid into
+     place, then releases and scrolling continues normally ---------- */
   function onScroll() {
-    if (!header) return;
-    if (isHome && heroEl) {
-      // the hamburger turns from white to black once the photo is mostly scrolled past
-      header.classList.toggle('scrolled', window.scrollY > heroEl.offsetHeight * 0.8);
-    } else {
+    if (isHome && heroWrap) {
+      const budget = heroWrap.offsetHeight - window.innerHeight;
+      let p = budget > 0 ? window.scrollY / budget : 1;
+      p = Math.min(1, Math.max(0, p));
+      if (card) {
+        card.style.setProperty('--card-progress', p.toFixed(3));
+        card.classList.toggle('pinning', p < 1);
+      }
+      if (header) header.classList.toggle('scrolled', p >= 1);
+    } else if (header) {
       header.classList.toggle('scrolled', window.scrollY > 40);
     }
   }
   document.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
   onScroll();
-
-  /* ---------- intro card slides into its resting spot as you scroll past the hero
-     (everything else in the hero — photo, logo — stays completely still) ---------- */
-  (function setupIntroCard() {
-    const card = document.querySelector('.intro-card');
-    if (!card || !heroEl) return;
-    function update() {
-      const heroH = heroEl.offsetHeight;
-      const start = heroH - 480; // starts sliding in a bit before it would naturally come into view
-      const end = heroH + 60; // fully settled shortly after the hero
-      let p = (window.scrollY - start) / (end - start);
-      p = Math.min(1, Math.max(0, p));
-      card.style.setProperty('--card-progress', p.toFixed(3));
-    }
-    document.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    update();
-  })();
 
   /* ---------- scroll-progress frame (violet outline that completes at page bottom) ---------- */
   (function setupScrollFrame() {
