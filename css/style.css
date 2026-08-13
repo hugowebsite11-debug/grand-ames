@@ -264,6 +264,10 @@ body:not(.home) .main-nav a{color:var(--ink);}
   background:var(--white);
   padding:56px 50px;
   box-shadow:0 24px 60px -20px rgba(0,0,0,.3);
+  /* stays put (invisible, lower) until scrolled to — see the dedicated scroll
+     handler in main.js, which sets --card-progress from 0 to 1 */
+  opacity:var(--card-progress, 0);
+  transform:translateY(calc((1 - var(--card-progress, 0)) * 130px));
 }
 @media (max-width:640px){
   .intro-card{margin-top:-90px;padding:40px 28px;}

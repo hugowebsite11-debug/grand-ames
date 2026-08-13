@@ -18,6 +18,24 @@
   document.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
+  /* ---------- intro card slides into its resting spot as you scroll past the hero
+     (everything else in the hero — photo, logo — stays completely still) ---------- */
+  (function setupIntroCard() {
+    const card = document.querySelector('.intro-card');
+    if (!card || !heroEl) return;
+    function update() {
+      const heroH = heroEl.offsetHeight;
+      const start = heroH - 480; // starts sliding in a bit before it would naturally come into view
+      const end = heroH + 60; // fully settled shortly after the hero
+      let p = (window.scrollY - start) / (end - start);
+      p = Math.min(1, Math.max(0, p));
+      card.style.setProperty('--card-progress', p.toFixed(3));
+    }
+    document.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+
   /* ---------- scroll-progress frame (violet outline that completes at page bottom) ---------- */
   (function setupScrollFrame() {
     const NS = 'http://www.w3.org/2000/svg';
