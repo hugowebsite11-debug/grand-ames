@@ -115,17 +115,19 @@
   if (modalOverlay) {
     const modalTitle = modalOverlay.querySelector('[data-modal-title]');
     const modalSub = modalOverlay.querySelector('[data-modal-sub]');
-    const modalDeposit = modalOverlay.querySelector('[data-modal-deposit]');
+    const modalPrice = modalOverlay.querySelector('[data-modal-price]');
     const modalForm = modalOverlay.querySelector('form');
+    let currentOutdoor = false;
 
     document.querySelectorAll('[data-book]').forEach((btn) => {
       btn.addEventListener('click', () => {
         if (btn.disabled) return;
         modalTitle.textContent = btn.dataset.book;
         modalSub.textContent = btn.dataset.date || '';
-        modalDeposit.textContent = btn.dataset.deposit
-          ? `Acompte à régler à la réservation : ${btn.dataset.deposit}`
+        modalPrice.textContent = btn.dataset.price
+          ? `Montant à régler en intégralité à la réservation : ${btn.dataset.price}`
           : '';
+        currentOutdoor = btn.dataset.outdoor === '1';
         modalOverlay.classList.add('open');
         document.body.style.overflow = 'hidden';
       });
@@ -146,10 +148,30 @@
     if (modalForm) {
       modalForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        const outdoorNote = currentOutdoor
+          ? '<p>Cette expérience se déroule en extérieur : un groupe Instagram sera créé afin de te permettre de localiser précisément le groupe sur place.</p>'
+          : '';
         modalForm.innerHTML =
-          '<p style="font-weight:700;">Merci ! 🌸 Cette démo n\'est pas reliée à un paiement réel — pour finaliser ta réservation, écris-nous sur <a href="https://www.instagram.com/les.grand.ames/" target="_blank" rel="noopener" style="text-decoration:underline;">@les.grand.ames</a>.</p>';
+          '<p style="font-weight:700;">Merci pour ta réservation !</p>' +
+          '<p>Un e-mail te sera envoyé 48h avant l\'expérience avec toutes les informations concernant le point de rendez-vous et l\'organisation.</p>' +
+          outdoorNote +
+          '<p class="modal-note">Cette démo n\'est pas reliée à un prestataire de paiement réel — pour finaliser ta réservation dès maintenant, écris-nous sur <a href="https://www.instagram.com/les.grand.ames/" target="_blank" rel="noopener" style="text-decoration:underline;">@les.grand.ames</a>.</p>';
       });
     }
+  }
+
+  /* ---------- club privé adhésion (club-prive page) ---------- */
+  const joinClubBtn = document.querySelector('[data-join-club]');
+  if (joinClubBtn) {
+    joinClubBtn.addEventListener('click', () => {
+      const note = document.createElement('p');
+      note.className = 'modal-note';
+      note.style.marginTop = '16px';
+      note.innerHTML =
+        'Cette démo n\'est pas reliée à un prestataire de paiement réel — pour rejoindre le club privé dès maintenant, écris-nous sur <a href="https://www.instagram.com/les.grand.ames/" target="_blank" rel="noopener" style="text-decoration:underline;">@les.grand.ames</a>.';
+      joinClubBtn.insertAdjacentElement('afterend', note);
+      joinClubBtn.disabled = true;
+    });
   }
 
   /* ---------- generic contact form (partenariat page) ---------- */
