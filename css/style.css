@@ -317,6 +317,16 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
 .cta-band-yellow{background:var(--white);}
 .cta-band-yellow h2{color:var(--violet-dark);}
 .cta-band-yellow p{color:var(--violet-dark-ink);}
+.cta-band-yellow .btn-violet{
+  background:var(--white);color:var(--ink);border-color:var(--ink);
+  outline:1.5px solid transparent;outline-offset:0;
+  transition:background .25s ease, color .25s ease, outline-color .25s ease, outline-offset .25s ease;
+}
+.cta-band-yellow .btn-violet:hover,
+.cta-band-yellow .btn-violet:focus-visible{
+  background:var(--white);color:var(--ink);
+  outline-color:var(--ink);outline-offset:4px;
+}
 
 /* =========================================================
    split feature (partenariat / apropos teasers)
@@ -349,8 +359,8 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
    each with its own text overlaid directly on the image
    ========================================================= */
 .split-screen{
-  display:flex;gap:24px;
-  max-width:var(--container);margin:0 auto;padding:80px 24px;
+  display:flex;gap:10px;
+  max-width:var(--container);margin:0 auto;padding:80px 10px;
 }
 .split-screen-half{
   position:relative;flex:1 1 50%;overflow:hidden;
@@ -367,7 +377,7 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
 .split-screen-copy h2{color:var(--white);font-size:clamp(1.9rem,2.6vw,2.5rem);margin-top:.3em;}
 .split-screen-copy p{color:rgba(255,255,255,.85);margin-bottom:26px;}
 @media (max-width:880px){
-  .split-screen{flex-direction:column;padding:50px 24px;}
+  .split-screen{flex-direction:column;padding:50px 10px;}
   .split-screen-half{min-height:70vh;}
   .split-screen-copy{padding:44px 28px;}
 }
