@@ -314,7 +314,7 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
 .cta-band .btn-primary:hover,
 .cta-band .btn-violet:hover{background:var(--yellow);}
 
-.cta-band-yellow{background:var(--yellow);}
+.cta-band-yellow{background:var(--white);}
 .cta-band-yellow h2{color:var(--violet-dark);}
 .cta-band-yellow p{color:var(--violet-dark-ink);}
 
@@ -348,11 +348,14 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
    split-screen (homepage) — two full-bleed photo halves, side by side,
    each with its own text overlaid directly on the image
    ========================================================= */
-.split-screen{display:flex;min-height:100vh;}
+.split-screen{
+  display:flex;gap:24px;
+  max-width:var(--container);margin:0 auto;padding:80px 28px;
+}
 .split-screen-half{
   position:relative;flex:1 1 50%;overflow:hidden;
   display:flex;align-items:flex-end;
-  min-height:520px;
+  min-height:560px;
 }
 .split-screen-half img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
 .split-screen-half::after{
@@ -364,8 +367,8 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
 .split-screen-copy h2{color:var(--white);font-size:clamp(1.9rem,2.6vw,2.5rem);margin-top:.3em;}
 .split-screen-copy p{color:rgba(255,255,255,.85);margin-bottom:26px;}
 @media (max-width:880px){
-  .split-screen{flex-direction:column;min-height:auto;}
-  .split-screen-half{min-height:80vh;}
+  .split-screen{flex-direction:column;padding:50px 20px;}
+  .split-screen-half{min-height:70vh;}
   .split-screen-copy{padding:44px 28px;}
 }
 
