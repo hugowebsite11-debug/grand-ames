@@ -498,18 +498,19 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
 .carousel-strip{display:flex;gap:22px;overflow-x:auto;padding:10px 0 30px;scrollbar-width:thin;}
 .carousel-strip img{height:280px;border-radius:var(--radius-sm);flex:0 0 auto;box-shadow:var(--shadow-card);}
 
-/* full-bleed photo hero, used for the EVJF page */
-.evjf-hero{position:relative;min-height:76vh;display:flex;align-items:flex-end;overflow:hidden;}
-.evjf-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 32%;}
-.evjf-hero::after{
+/* full-bleed photo hero, reused on any page that opens on a dark photo
+   (EVJF, Club Privé) — pairs with body.dark-hero for the header colour swap */
+.photo-hero{position:relative;min-height:76vh;display:flex;align-items:flex-end;overflow:hidden;}
+.photo-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 32%;}
+.photo-hero::after{
   content:"";position:absolute;inset:0;
   background:linear-gradient(0deg, rgba(30,20,36,.88) 0%, rgba(30,20,36,.2) 58%, rgba(30,20,36,.35) 100%);
 }
-.evjf-hero-copy{position:relative;z-index:1;padding:80px 0 70px;max-width:640px;}
-.evjf-hero-copy .eyebrow{color:var(--yellow);}
-.evjf-hero-copy h1{color:var(--white);font-size:clamp(2.3rem,4.8vw,3.6rem);margin-top:.15em;}
-.evjf-hero-copy .lede{color:rgba(255,255,255,.88);max-width:560px;margin:18px 0 30px;}
-@media (max-width:640px){.evjf-hero{min-height:88vh;}.evjf-hero-copy{padding:60px 0 50px;}}
+.photo-hero-copy{position:relative;z-index:1;padding:80px 0 70px;max-width:640px;}
+.photo-hero-copy .eyebrow{color:var(--yellow);}
+.photo-hero-copy h1{color:var(--white);font-size:clamp(2.3rem,4.8vw,3.6rem);margin-top:.15em;}
+.photo-hero-copy .lede{color:rgba(255,255,255,.88);max-width:560px;margin:18px 0 30px;}
+@media (max-width:640px){.photo-hero{min-height:88vh;}.photo-hero-copy{padding:60px 0 50px;}}
 
 /* editorial numbered steps (replaces boxed cards) */
 .process-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:10px 0 40px;}
@@ -588,24 +589,17 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
 @media (max-width:1080px){.groups-grid{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:560px){.groups-grid{grid-template-columns:1fr;}}
 
-.privilege-band{
-  background:var(--violet-light);border-radius:var(--radius);
-  padding:60px 50px;margin-bottom:110px;
-  display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;
+/* editorial numbered list of membership privileges (Club Privé) */
+.privilege-list{max-width:760px;margin:0 auto;}
+.privilege-item{display:flex;align-items:center;gap:28px;padding:26px 0;border-bottom:1px solid var(--line);}
+.privilege-item:first-child{padding-top:0;}
+.privilege-item:last-child{border-bottom:none;padding-bottom:0;}
+.privilege-index{font-family:var(--font-script);font-style:italic;color:var(--violet-dark);font-size:1.6rem;flex:0 0 50px;}
+.privilege-item p{font-size:1.08rem;color:var(--ink);margin:0;font-weight:600;}
+@media (max-width:560px){
+  .privilege-item{gap:18px;padding:20px 0;}
+  .privilege-item p{font-size:.98rem;}
 }
-.privilege-band ul{margin-top:18px;}
-.privilege-band li{display:flex;gap:10px;margin-bottom:12px;color:var(--ink);font-weight:600;}
-@media (max-width:880px){.privilege-band{grid-template-columns:1fr;padding:40px 28px;}}
-
-.adhesion-card{
-  max-width:560px;margin:0 auto;text-align:center;
-  background:var(--white);border:1.5px solid var(--line);
-  padding:60px 50px;box-shadow:var(--shadow-card);
-}
-.adhesion-card h2{margin:.3em 0 .5em;}
-.adhesion-card p{color:var(--ink-soft);}
-.adhesion-card .btn{margin-top:22px;}
-@media (max-width:560px){.adhesion-card{padding:44px 26px;}}
 
 /* =========================================================
    utility

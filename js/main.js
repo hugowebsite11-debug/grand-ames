@@ -5,6 +5,7 @@
   const isHome = document.body.classList.contains('home');
   const heroWrap = document.querySelector('.hero-pin-wrap');
   const card = document.querySelector('.intro-card');
+  const darkHeroEl = document.querySelector('.photo-hero');
 
   /* ---------- hero stays pinned (frozen) until the intro card has fully slid into
      place, then releases and scrolling continues normally ---------- */
@@ -17,9 +18,13 @@
         card.style.setProperty('--card-progress', p.toFixed(3));
         card.classList.toggle('pinning', p < 1);
       }
-      if (header) header.classList.toggle('scrolled', p >= 1);
+      /* header/logo/burger must stay white for as long as the pinned photo is still
+         on screen — that's the full hero-pin-wrap height, not just the pin budget
+         (the sticky photo itself still needs its own viewport height to scroll away) */
+      if (header) header.classList.toggle('scrolled', window.scrollY >= heroWrap.offsetHeight);
     } else if (header) {
-      header.classList.toggle('scrolled', window.scrollY > 40);
+      const threshold = darkHeroEl ? darkHeroEl.offsetHeight : 40;
+      header.classList.toggle('scrolled', window.scrollY > threshold);
     }
   }
   document.addEventListener('scroll', onScroll, { passive: true });
