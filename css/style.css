@@ -144,16 +144,34 @@ section{position:relative;}
 .btn[disabled]{opacity:.5;cursor:not-allowed;}
 
 /* =========================================================
-   HEADER — scroll-driven logo migration (homepage)
+   HEADER — one identical transparent header on every page: no bar, no box,
+   just a hamburger fixed top-left and a small logo mark fixed top-centre.
    ========================================================= */
 .site-header{
   position:fixed;inset:0 0 auto 0;z-index:100;
   padding:22px 0;
+  pointer-events:none;
 }
 .site-header .container{display:flex;align-items:center;justify-content:space-between;}
+.site-header .brand-logo,
+.site-header .burger,
+.site-header .nav-cta,
+.main-nav{pointer-events:auto;}
 
-.brand-logo{display:flex;align-items:center;}
+.nav-cta{display:none;}
+
+/* logo mark: fixed, centred at the very top, same spot on every page */
+.brand-logo{
+  position:fixed;top:22px;left:50%;transform:translateX(-50%);z-index:101;
+  display:flex;align-items:center;
+}
 .brand-logo img{height:34px;width:auto;display:block;}
+/* on pages that open on a dark full-bleed photo (home, evjf) the mark starts white
+   and swaps to the natural dark logo once real (non-photo) content is behind it */
+body.home .brand-logo img,
+body.dark-hero .brand-logo img{filter:brightness(0) invert(1);}
+body.home .site-header.scrolled .brand-logo img,
+body.dark-hero .site-header.scrolled .brand-logo img{filter:none;}
 
 /* the hamburger + full-screen overlay menu is the one nav pattern for the whole
    site, on every page and every viewport width — no separate inline desktop nav */
@@ -173,11 +191,17 @@ section{position:relative;}
 }
 .main-nav a:hover, .main-nav a.active{border-color:currentColor;}
 
-.nav-cta{background:var(--ink);color:var(--white);box-shadow:var(--shadow-card);}
-.nav-cta:hover{background:#000;}
-
-.burger{display:flex;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px;}
-.burger span{width:26px;height:2px;background:var(--ink);border-radius:2px;}
+/* hamburger: fixed directly on the viewport edge, identical position everywhere
+   (.container is centered with a max-width, so it can't just sit in flow) */
+.burger{
+  position:fixed;top:24px;left:20px;z-index:101;
+  display:flex;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px;
+}
+.burger span{width:26px;height:2px;background:var(--ink);border-radius:2px;transition:background .2s ease;}
+body.home .burger span,
+body.dark-hero .burger span{background:var(--white);}
+body.home .site-header.scrolled .burger span,
+body.dark-hero .site-header.scrolled .burger span{background:var(--ink);}
 
 .nav-close{
   display:block;
@@ -188,34 +212,8 @@ section{position:relative;}
   padding:8px;
 }
 
-/* header background lives on a pseudo-element (not .site-header itself) so that
-   backdrop-filter never becomes a new containing block for the fixed .main-nav overlay */
-.site-header::before{
-  content:"";position:absolute;inset:0;z-index:-1;
-  transition:background .2s ease;
-}
-
-/* homepage: no header chrome at all — just a hamburger floating directly on the
-   fixed background photo (see .page-bg), no frame, no logo, no button.
-   Its colour swaps once real (non-photo) content has scrolled behind it, so it
-   stays legible without ever gaining a background box. */
-body.home .site-header::before{display:none;}
-body.home .brand-logo,
-body.home .nav-cta{display:none;}
-/* pinned directly to the true viewport edge — .container is centered with a max-width,
-   so it doesn't reach the edge on wide screens, which is why this can't just sit in flow */
-body.home .burger{
-  position:fixed;top:24px;left:20px;z-index:101;
-}
-body.home .burger span{background:var(--white);}
-body.home .site-header.scrolled .burger span{background:var(--ink);}
-
-/* inner pages: standard sticky header bar (logo + hamburger), same overlay menu as home */
-body:not(.home) .site-header::before{
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(10px);
-  box-shadow:0 12px 28px -6px rgba(0,0,0,.12);
-}
+/* no header bar/box anywhere — it's always transparent, on every page */
+.site-header::before{content:none;}
 
 /* =========================================================
    HERO (homepage) — the photo itself never moves or changes; it's pinned only for
