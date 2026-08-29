@@ -350,7 +350,7 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
    ========================================================= */
 .split-screen{
   display:flex;gap:24px;
-  max-width:var(--container);margin:0 auto;padding:80px 28px;
+  max-width:var(--container);margin:0 auto;padding:80px 24px;
 }
 .split-screen-half{
   position:relative;flex:1 1 50%;overflow:hidden;
@@ -367,7 +367,7 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
 .split-screen-copy h2{color:var(--white);font-size:clamp(1.9rem,2.6vw,2.5rem);margin-top:.3em;}
 .split-screen-copy p{color:rgba(255,255,255,.85);margin-bottom:26px;}
 @media (max-width:880px){
-  .split-screen{flex-direction:column;padding:50px 20px;}
+  .split-screen{flex-direction:column;padding:50px 24px;}
   .split-screen-half{min-height:70vh;}
   .split-screen-copy{padding:44px 28px;}
 }
