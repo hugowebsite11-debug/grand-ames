@@ -315,17 +315,14 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
 .cta-band .btn-violet:hover{background:var(--yellow);}
 
 .cta-band-yellow{background:var(--white);}
-.cta-band-yellow h2{color:var(--violet-dark);}
-.cta-band-yellow p{color:var(--violet-dark-ink);}
+.cta-band-yellow h2{color:var(--ink);}
+.cta-band-yellow p{color:var(--ink);}
 .cta-band-yellow .btn-violet{
   background:var(--white);color:var(--ink);border-color:var(--ink);
-  outline:1.5px solid transparent;outline-offset:0;
-  transition:background .25s ease, color .25s ease, outline-color .25s ease, outline-offset .25s ease;
 }
 .cta-band-yellow .btn-violet:hover,
 .cta-band-yellow .btn-violet:focus-visible{
-  background:var(--white);color:var(--ink);
-  outline-color:var(--ink);outline-offset:4px;
+  background:var(--violet-dark);color:var(--white);border-color:var(--violet-dark);
 }
 
 /* =========================================================
