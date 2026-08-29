@@ -155,10 +155,19 @@ section{position:relative;}
 .brand-logo{display:flex;align-items:center;}
 .brand-logo img{height:34px;width:auto;display:block;}
 
-.main-nav ul{display:flex;gap:30px;}
+/* the hamburger + full-screen overlay menu is the one nav pattern for the whole
+   site, on every page and every viewport width — no separate inline desktop nav */
+.main-nav{
+  position:fixed;inset:0;background:var(--cream);
+  display:flex;align-items:center;justify-content:center;
+  transform:translateX(100%);transition:transform .4s ease;
+  z-index:99;
+}
+.main-nav.open{transform:translateX(0);}
+.main-nav ul{display:flex;flex-direction:column;text-align:center;gap:26px;}
 .main-nav a{
-  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-  color:var(--white);
+  font-size:1.1rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:var(--ink)!important;
   padding-bottom:4px;border-bottom:1px solid transparent;
   transition:border-color .25s ease, opacity .25s ease;
 }
@@ -167,21 +176,17 @@ section{position:relative;}
 .nav-cta{background:var(--ink);color:var(--white);box-shadow:var(--shadow-card);}
 .nav-cta:hover{background:#000;}
 
-.burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px;}
+.burger{display:flex;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px;}
 .burger span{width:26px;height:2px;background:var(--ink);border-radius:2px;}
 
-/* only meaningful once .main-nav becomes the full-screen overlay (home, or inner
-   pages under the mobile breakpoint) — hidden by default so it can't strand itself
-   in the header on inner pages at desktop width, where nav is just an inline row */
 .nav-close{
-  display:none;
+  display:block;
   position:absolute;top:28px;right:28px;
   background:none;border:0;cursor:pointer;
   font-size:2.2rem;line-height:1;font-weight:300;
   color:var(--ink);
   padding:8px;
 }
-body.home .nav-close{display:block;}
 
 /* header background lives on a pseudo-element (not .site-header itself) so that
    backdrop-filter never becomes a new containing block for the fixed .main-nav overlay */
@@ -191,7 +196,7 @@ body.home .nav-close{display:block;}
 }
 
 /* homepage: no header chrome at all — just a hamburger floating directly on the
-   fixed background photo (see .page-bg), no frame, no logo, no nav row, no button.
+   fixed background photo (see .page-bg), no frame, no logo, no button.
    Its colour swaps once real (non-photo) content has scrolled behind it, so it
    stays legible without ever gaining a background box. */
 body.home .site-header::before{display:none;}
@@ -200,43 +205,16 @@ body.home .nav-cta{display:none;}
 /* pinned directly to the true viewport edge — .container is centered with a max-width,
    so it doesn't reach the edge on wide screens, which is why this can't just sit in flow */
 body.home .burger{
-  display:flex;position:fixed;top:24px;left:20px;z-index:101;
+  position:fixed;top:24px;left:20px;z-index:101;
 }
 body.home .burger span{background:var(--white);}
 body.home .site-header.scrolled .burger span{background:var(--ink);}
 
-/* on the homepage the nav is always the full-screen overlay opened by the hamburger,
-   at any viewport width (not just mobile) */
-body.home .main-nav{
-  position:fixed;inset:0;background:var(--cream);
-  display:flex;align-items:center;justify-content:center;
-  transform:translateX(100%);transition:transform .4s ease;
-  z-index:99;
-}
-body.home .main-nav.open{transform:translateX(0);}
-body.home .main-nav ul{flex-direction:column;text-align:center;gap:26px;}
-body.home .main-nav a{color:var(--ink)!important;font-size:1.1rem;}
-
-/* inner pages: standard sticky header */
+/* inner pages: standard sticky header bar (logo + hamburger), same overlay menu as home */
 body:not(.home) .site-header::before{
   background:rgba(255,255,255,.94);
   backdrop-filter:blur(10px);
   box-shadow:0 12px 28px -6px rgba(0,0,0,.12);
-}
-body:not(.home) .main-nav a{color:var(--ink);}
-
-@media (max-width:900px){
-  .main-nav{
-    position:fixed;inset:0;background:var(--cream);
-    display:flex;align-items:center;justify-content:center;
-    transform:translateX(100%);transition:transform .4s ease;
-    z-index:99;
-  }
-  .main-nav.open{transform:translateX(0);}
-  .main-nav ul{flex-direction:column;text-align:center;gap:26px;}
-  .main-nav a{color:var(--ink)!important;font-size:1.1rem;}
-  .burger{display:flex;}
-  .nav-close{display:block;}
 }
 
 /* =========================================================
@@ -417,7 +395,10 @@ body:not(.home) .main-nav a{color:var(--ink);}
 }
 .footer-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,217,.18);}
 .footer-brand{display:flex;flex-direction:column;gap:14px;max-width:340px;}
-.footer-logo{height:38px;width:auto;align-self:flex-start;}
+.footer-wordmark{
+  font-family:var(--font-display);font-style:italic;font-size:1.5rem;
+  color:var(--yellow);margin:0;
+}
 .footer-brand p{color:#cfc3d9;font-size:.92rem;margin:0;}
 .footer-cols{display:flex;gap:64px;flex-wrap:wrap;}
 .footer-col h4{font-family:var(--font-body);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:#cfc3d9;margin-bottom:14px;}
@@ -518,6 +499,63 @@ body:not(.home) .main-nav a{color:var(--ink);}
 
 .carousel-strip{display:flex;gap:22px;overflow-x:auto;padding:10px 0 30px;scrollbar-width:thin;}
 .carousel-strip img{height:280px;border-radius:var(--radius-sm);flex:0 0 auto;box-shadow:var(--shadow-card);}
+
+/* full-bleed photo hero, used for the EVJF page */
+.evjf-hero{position:relative;min-height:76vh;display:flex;align-items:flex-end;overflow:hidden;}
+.evjf-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 32%;}
+.evjf-hero::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(0deg, rgba(30,20,36,.88) 0%, rgba(30,20,36,.2) 58%, rgba(30,20,36,.35) 100%);
+}
+.evjf-hero-copy{position:relative;z-index:1;padding:80px 0 70px;max-width:640px;}
+.evjf-hero-copy .eyebrow{color:var(--yellow);}
+.evjf-hero-copy h1{color:var(--white);font-size:clamp(2.3rem,4.8vw,3.6rem);margin-top:.15em;}
+.evjf-hero-copy .lede{color:rgba(255,255,255,.88);max-width:560px;margin:18px 0 30px;}
+@media (max-width:640px){.evjf-hero{min-height:88vh;}.evjf-hero-copy{padding:60px 0 50px;}}
+
+/* editorial numbered steps (replaces boxed cards) */
+.process-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:10px 0 40px;}
+.process-step{padding:0 40px;border-left:1px solid var(--line);}
+.process-step:first-child{border-left:none;padding-left:0;}
+.process-step:last-child{padding-right:0;}
+.process-num{font-family:var(--font-script);font-style:italic;color:var(--violet-dark);font-size:2.6rem;margin-bottom:.15em;}
+.process-step h3{margin-bottom:.4em;}
+.process-step p{color:var(--ink-soft);}
+@media (max-width:880px){
+  .process-steps{grid-template-columns:1fr;gap:34px;}
+  .process-step{border-left:none;padding:0;border-top:1px solid var(--line);padding-top:28px;}
+  .process-step:first-child{border-top:none;padding-top:0;}
+}
+
+/* asymmetric bento mosaic for the "types de groupes" tiles */
+.evjf-bento{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:230px 230px;gap:20px;}
+.evjf-bento .group-card{height:100%;}
+.evjf-bento .bento-a{grid-column:1/3;grid-row:1/3;}
+.evjf-bento .bento-b{grid-column:3/5;grid-row:1/2;}
+.evjf-bento .bento-c{grid-column:3/4;grid-row:2/3;}
+.evjf-bento .bento-d{grid-column:4/5;grid-row:2/3;}
+@media (max-width:880px){
+  .evjf-bento{grid-template-columns:1fr 1fr;grid-template-rows:200px 200px 200px;}
+  .evjf-bento .bento-a{grid-column:1/3;grid-row:1/2;}
+  .evjf-bento .bento-b{grid-column:1/3;grid-row:2/3;}
+  .evjf-bento .bento-c{grid-column:1/2;grid-row:3/4;}
+  .evjf-bento .bento-d{grid-column:2/3;grid-row:3/4;}
+}
+@media (max-width:560px){
+  .evjf-bento{grid-template-columns:1fr;grid-template-rows:none;}
+  .evjf-bento .bento-a, .evjf-bento .bento-b, .evjf-bento .bento-c, .evjf-bento .bento-d{grid-column:auto;grid-row:auto;height:260px;}
+}
+
+/* staggered photo gallery */
+.evjf-gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;padding:10px 0 30px;}
+.evjf-gallery img{width:100%;height:300px;object-fit:cover;box-shadow:var(--shadow-card);}
+.evjf-gallery img:nth-child(even){transform:translateY(36px);}
+@media (max-width:900px){
+  .evjf-gallery{grid-template-columns:repeat(2,1fr);}
+  .evjf-gallery img{height:220px;}
+  .evjf-gallery img:nth-child(even){transform:none;}
+}
+@media (max-width:560px){.evjf-gallery{grid-template-columns:1fr;}}
 
 /* =========================================================
    contact / partenariat form
