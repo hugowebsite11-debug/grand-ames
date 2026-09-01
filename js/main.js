@@ -192,4 +192,20 @@
       contactForm.querySelectorAll('input, textarea, select, button').forEach((el) => (el.disabled = true));
     });
   }
+
+  /* ---------- retreat interest form (retraites page) ---------- */
+  const retreatForm = document.querySelector('.retreat-form');
+  if (retreatForm) {
+    retreatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const note = document.createElement('p');
+      note.className = 'modal-note';
+      note.style.fontWeight = '700';
+      note.style.marginTop = '14px';
+      note.innerHTML =
+        'Merci ! Tu seras tenue informée dès l\'annonce de la prochaine retraite. 💌<br><span style="font-weight:400;">Cette démo n\'est pas reliée à un envoi réel — pour être sûre d\'être prévenue, écris-nous dès maintenant sur <a href="https://www.instagram.com/les.grand.ames/" target="_blank" rel="noopener" style="text-decoration:underline;">@les.grand.ames</a>.</span>';
+      retreatForm.appendChild(note);
+      retreatForm.querySelectorAll('input, textarea, select, button').forEach((el) => (el.disabled = true));
+    });
+  }
 })();

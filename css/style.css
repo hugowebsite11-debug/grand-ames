@@ -612,6 +612,36 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
 }
 
 /* =========================================================
+   Nos retraites
+   ========================================================= */
+.retreat-card{
+  display:grid;grid-template-columns:1fr 1fr;
+  background:var(--paper);box-shadow:var(--shadow-card);
+  overflow:hidden;
+}
+.retreat-card-media{
+  background:var(--violet-light);
+  display:flex;align-items:center;justify-content:center;
+  min-height:560px;padding:40px;text-align:center;
+  color:var(--violet-dark-ink);font-family:var(--font-script);font-style:italic;font-size:1.3rem;
+}
+.retreat-card-copy{padding:56px 50px;}
+.retreat-card-copy .tag{margin-bottom:16px;}
+.retreat-card-copy p{color:var(--ink-soft);margin-bottom:26px;}
+.retreat-form .field{margin-bottom:16px;}
+@media (max-width:880px){
+  .retreat-card{grid-template-columns:1fr;}
+  .retreat-card-media{min-height:260px;}
+  .retreat-card-copy{padding:40px 28px;}
+}
+
+.empty-state{
+  max-width:640px;margin:0 auto;text-align:center;
+  border:1.5px dashed var(--line);padding:56px 40px;
+  color:var(--ink-soft);
+}
+
+/* =========================================================
    utility
    ========================================================= */
 .text-center{text-align:center;}

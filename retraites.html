@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Club Privé — Les Grand'Ames</title>
-<meta name="description" content="Accède aux privilèges du club privé des Grand'Ames : tarifs exclusifs, expériences réservées et une communauté de femmes bienveillantes.">
+<title>Nos retraites — Les Grand'Ames</title>
+<meta name="description" content="Des parenthèses de plusieurs jours pour ralentir, se retrouver et vivre pleinement l'instant : découvre les retraites des Grand'Ames.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23845E99'/%3E%3Ctext x='50' y='66' font-size='58' text-anchor='middle' fill='%23FFFFD9' font-family='Georgia,serif'%3EG%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/style.css?v=11">
 </head>
-<body class="dark-hero">
+<body>
 
 <header class="site-header">
   <div class="container">
@@ -20,51 +20,62 @@
       <ul>
         <li><a href="index.html">Accueil</a></li>
         <li><a href="ateliers.html">Expériences</a></li>
-        <li><a href="retraites.html">Nos retraites</a></li>
+        <li><a href="retraites.html" class="active">Nos retraites</a></li>
         <li><a href="evjf.html">EVJF &amp; Anniversaire</a></li>
         <li><a href="partenariat.html">Collaboration</a></li>
         <li><a href="apropos.html">Notre histoire</a></li>
-        <li><a href="club-prive.html" class="active">Club Privé</a></li>
+        <li><a href="club-prive.html">Club Privé</a></li>
       </ul>
     </nav>
-    <a href="#adhesion" class="btn btn-primary btn-sm nav-cta">Devenir une Grand'Ame</a>
+    <a href="#prochaine-retraite" class="btn btn-primary btn-sm nav-cta">Nos retraites</a>
     <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 
-<section class="photo-hero">
-  <img src="assets/bibli4.jpeg" alt="La communauté du club privé des Grand'Ames" class="photo-hero-img">
-  <div class="container photo-hero-copy">
-    <span class="eyebrow">communauté privée</span>
-    <h1>Accéder aux privilèges des Grand'Ames</h1>
-    <p class="lede">Bien que certaines de nos expériences soient ouvertes à toutes, il existe un club privé des Grand'Ames, une communauté restreinte qui offre davantage de légèreté. Accéder au club privé, c'est incarner une nouvelle version de toi : une femme qui prend soin d'elle, qui s'écoute et qui avance dans la joie et la lumière.</p>
-    <a href="#adhesion" class="btn btn-light">Devenir une Grand'Ame</a>
+<section class="page-hero decor">
+  <img src="assets/mouette.png" class="doodle" style="width:150px;top:14px;right:6%;" alt="" aria-hidden="true">
+  <div class="container">
+    <span class="eyebrow">quelques jours pour ralentir autrement.</span>
+    <h1>Nos retraites</h1>
+    <p class="lede">Des parenthèses pensées pour sortir du quotidien, se retrouver et vivre pleinement l'instant. Plusieurs jours rythmés par le bien-être, le mouvement, la créativité et les rencontres, dans des lieux choisis pour leur atmosphère. Découvre notre prochaine retraite et plonge dans l'univers des <em>Grand'Ames</em> à travers les éditions précédentes et les témoignages de celles qui les ont vécues.</p>
   </div>
 </section>
 
-<section class="section-pad">
+<section id="prochaine-retraite" class="section-pad" style="padding-top:20px;">
   <div class="container">
-    <div class="text-center reveal" style="margin-bottom:40px;">
-      <span class="eyebrow">vos privilèges</span>
-      <h2 class="mt-0">Ce que le club privé t'offre</h2>
-    </div>
-    <div class="privilege-list">
-      <div class="privilege-item reveal"><span class="privilege-index">01</span><p>Tarifs exclusifs chez nos partenaires du bien-être</p></div>
-      <div class="privilege-item reveal"><span class="privilege-index">02</span><p>Expériences exclusives</p></div>
-      <div class="privilege-item reveal"><span class="privilege-index">03</span><p>-10% sur toutes nos expériences publiques</p></div>
-      <div class="privilege-item reveal"><span class="privilege-index">04</span><p>Sorties spontanées entre nous</p></div>
-      <div class="privilege-item reveal"><span class="privilege-index">05</span><p>Groupe de discussion avec toutes les autres Grand'Ames</p></div>
+    <div class="retreat-card reveal">
+      <div class="retreat-card-media">
+        <span>Photos à venir</span>
+      </div>
+      <div class="retreat-card-copy">
+        <span class="tag">Notre prochaine retraite</span>
+        <h2>Les détails arrivent bientôt</h2>
+        <p>Les dates, le lieu et le programme de la prochaine retraite seront annoncés très prochainement. Laisse-nous tes coordonnées pour être tenue informée en priorité, dès l'ouverture des places.</p>
+        <form class="retreat-form">
+          <div class="field-row">
+            <div class="field"><label for="r-nom">Nom</label><input id="r-nom" type="text" required></div>
+            <div class="field"><label for="r-prenom">Prénom</label><input id="r-prenom" type="text" required></div>
+          </div>
+          <div class="field"><label for="r-mail">E-mail</label><input id="r-mail" type="email" required></div>
+          <div class="field"><label for="r-tel">Téléphone</label><input id="r-tel" type="tel"></div>
+          <div class="field"><label for="r-message">Un mot sur ta demande (facultatif)</label><textarea id="r-message" rows="4"></textarea></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Être tenue informée</button>
+        </form>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="adhesion" class="cta-band grain" style="background:var(--violet-dark);">
+<section class="section-pad decor" style="padding-top:0;">
+  <img src="assets/mouette.png" class="doodle" style="width:110px;top:10px;left:6%;transform:scaleX(-1);" alt="" aria-hidden="true">
   <div class="container">
-    <span class="tag reveal" style="background:var(--yellow);color:var(--violet-dark);margin-bottom:18px;">Adhésion</span>
-    <h2 class="reveal">59€ <span style="font-size:1.15rem;font-weight:600;">/ an</span></h2>
-    <p class="reveal">L'adhésion au club privé des <em>Grand'Ames</em> est valable un an et donne accès à l'ensemble des privilèges ci-dessus.</p>
-    <button type="button" class="btn btn-light reveal" data-join-club>DEVENIR UNE GRAND'AME</button>
-    <p class="small reveal" style="color:rgba(255,255,255,.75);margin-top:20px;max-width:480px;margin-inline:auto;">Tu préfères nous rencontrer avant de t'engager ? Rejoins le club privé directement sur place après ta première expérience, au tarif de 49€ au lieu de 59€.</p>
+    <div class="text-center reveal" style="margin-bottom:30px;">
+      <span class="eyebrow">éditions précédentes</span>
+      <h2 class="mt-0">Témoignages &amp; photos des retraites passées</h2>
+    </div>
+    <div class="empty-state reveal">
+      <p>Les photos et témoignages des précédentes retraites arrivent très bientôt.</p>
+    </div>
   </div>
 </section>
 
