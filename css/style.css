@@ -6,7 +6,7 @@
    The grid/quadrillage pegboard layout stays as before, just recolored.
    ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Jost:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Jost:wght@300;400;500;600;700&display=swap');
 
 :root{
   /* charte colors */
@@ -24,8 +24,8 @@
   --line:rgba(46,34,51,.14);
 
   /* type */
-  --font-display:'Fraunces', serif;
-  --font-script:'Fraunces', serif;
+  --font-display:'Instrument Serif', serif;
+  --font-script:'Instrument Serif', serif;
   --font-body:'Jost', sans-serif;
 
   /* fx */
@@ -60,7 +60,7 @@ img{max-width:100%;display:block;}
 }
 a{color:inherit;text-decoration:none;}
 ul{margin:0;padding:0;list-style:none;}
-h1,h2,h3,h4{font-family:var(--font-display);margin:0 0 .5em;font-weight:600;line-height:1.08;color:var(--ink);}
+h1,h2,h3,h4{font-family:var(--font-display);margin:0 0 .5em;font-weight:400;line-height:1.08;color:var(--ink);}
 p{margin:0 0 1em;line-height:1.65;}
 .container{max-width:var(--container);margin:0 auto;padding:0 28px;}
 section{position:relative;}
