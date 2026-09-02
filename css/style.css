@@ -627,11 +627,18 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
   box-shadow:0 2px 4px rgba(0,0,0,.12);
 }
 @media (min-width:1280px){.wall-photo{display:block;}}
-.wp-1{top:36px;left:1%;transform:rotate(-7deg);}
-.wp-2{top:0;right:2%;transform:rotate(6deg);}
-.wp-3{bottom:26px;left:4%;transform:rotate(5deg);}
-.wp-4{bottom:80px;right:1%;transform:rotate(-6deg);}
-.wp-5{top:46%;left:-.5%;width:108px;height:118px;transform:rotate(9deg);}
+.wp-1{top:36px;left:5%;transform:rotate(-7deg);}
+.wp-2{top:0;right:6%;transform:rotate(6deg);}
+.wp-3{bottom:26px;left:7%;transform:rotate(5deg);}
+.wp-4{bottom:80px;right:4%;transform:rotate(-6deg);}
+.wp-5{top:46%;left:9%;width:108px;height:118px;transform:rotate(9deg);}
+@media (min-width:1500px){
+  .wp-1{left:8%;}
+  .wp-2{right:9%;}
+  .wp-3{left:11%;}
+  .wp-4{right:7%;}
+  .wp-5{left:13%;}
+}
 
 /* =========================================================
    Nos retraites
@@ -657,11 +664,10 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
   .retreat-card-copy{padding:40px 28px;}
 }
 
-.empty-state{
-  max-width:640px;margin:0 auto;text-align:center;
-  border:1.5px dashed var(--line);padding:56px 40px;
-  color:var(--ink-soft);
-}
+.retreat-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.retreat-gallery img{width:100%;height:230px;object-fit:cover;box-shadow:var(--shadow-card);}
+@media (max-width:900px){.retreat-gallery{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:480px){.retreat-gallery{grid-template-columns:1fr;}.retreat-gallery img{height:280px;}}
 
 /* =========================================================
    utility
