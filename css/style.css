@@ -431,18 +431,26 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
 .page-hero .lede{max-width:620px;margin:16px auto 0;color:var(--ink-soft);}
 
 /* =========================================================
-   ATELIERS — full listing (classic, legible grid)
+   ATELIERS — animated 2-up carousel, portrait photos shown in full
    ========================================================= */
-.ateliers-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:36px;
-  padding:20px 0 110px;
+.carousel{padding:20px 0 110px;}
+.carousel-viewport{overflow:hidden;}
+.carousel-track{
+  display:flex;gap:36px;
+  transition:transform .6s cubic-bezier(.65,0,.35,1);
+  will-change:transform;
 }
-.atelier-card{
-  background:var(--paper);border-radius:var(--radius);overflow:hidden;
-  box-shadow:var(--shadow-card);display:flex;flex-direction:column;
+.carousel-card{
+  flex:0 0 calc(50% - 18px);
+  background:var(--paper);box-shadow:var(--shadow-card);
+  display:flex;overflow:hidden;
 }
-.atelier-photo{height:290px;position:relative;}
-.atelier-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+.carousel-card-photo{
+  flex:0 0 42%;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--violet-light);max-height:640px;
+}
+.carousel-card-photo img{width:100%;height:100%;object-fit:contain;}
 .atelier-badge{
   position:absolute;top:16px;left:16px;
   background:var(--yellow);color:var(--violet-dark);
@@ -450,18 +458,38 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
   padding:7px 13px;border-radius:0;
 }
 .atelier-badge.complet{background:var(--violet-dark);color:var(--yellow);}
-.atelier-body{padding:26px 28px 28px;flex:1;display:flex;flex-direction:column;}
+.carousel-card-body{padding:28px 30px;flex:1;display:flex;flex-direction:column;min-width:0;}
+.carousel-card-body h3{font-size:1.3rem;margin-bottom:.3em;}
+.carousel-card-body p{color:var(--ink-soft);font-size:.9rem;flex:1;}
 .atelier-meta{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-soft);margin-bottom:10px;font-weight:700;}
 .atelier-meta span{display:inline-flex;align-items:center;gap:6px;}
-.atelier-body h3{font-size:1.4rem;margin-bottom:.3em;}
-.atelier-body p{color:var(--ink-soft);font-size:.94rem;flex:1;}
-.atelier-foot{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px dashed var(--line);}
+.atelier-foot{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:16px;padding-top:16px;border-top:1px dashed var(--line);}
 .price-block{line-height:1.3;}
 .price-block .price{font-weight:800;font-size:1.1rem;}
 .price-block .price-lga{font-size:.78rem;color:var(--violet-dark-ink);font-weight:700;}
 .price-block .acompte{font-size:.72rem;color:var(--ink-soft);}
 
-@media (max-width:880px){.ateliers-grid{grid-template-columns:1fr;}}
+.carousel-nav{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:36px;}
+.carousel-btn{
+  width:46px;height:46px;border:1.5px solid var(--ink);background:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;line-height:1;cursor:pointer;color:var(--ink);
+  transition:background .2s ease, color .2s ease;
+}
+.carousel-btn:hover:not(:disabled){background:var(--ink);color:var(--white);}
+.carousel-btn:disabled{opacity:.3;cursor:not-allowed;}
+.carousel-dots{display:flex;gap:9px;}
+.carousel-dot{
+  width:9px;height:9px;border-radius:50%;background:var(--line);border:0;cursor:pointer;padding:0;
+  transition:background .2s ease, transform .2s ease;
+}
+.carousel-dot.active{background:var(--violet-dark);transform:scale(1.3);}
+
+@media (max-width:880px){
+  .carousel-card{flex:0 0 100%;flex-direction:column;}
+  .carousel-card-photo{max-height:360px;}
+  .carousel-track{gap:24px;}
+}
 
 /* legend / filter bar */
 .ateliers-legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;}

@@ -115,6 +115,93 @@
     revealEls.forEach((el) => io.observe(el));
   }
 
+  /* ---------- workshop carousel (ateliers page) ---------- */
+  const carousel = document.querySelector('.carousel');
+  if (carousel) {
+    const viewport = carousel.querySelector('.carousel-viewport');
+    const track = carousel.querySelector('.carousel-track');
+    const cards = Array.from(track.children);
+    const prevBtn = carousel.querySelector('.carousel-prev');
+    const nextBtn = carousel.querySelector('.carousel-next');
+    const dotsWrap = carousel.querySelector('.carousel-dots');
+    let perView = window.innerWidth <= 880 ? 1 : 2;
+    let page = 0;
+
+    const totalPages = () => Math.ceil(cards.length / perView);
+
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i < totalPages(); i++) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot';
+        dot.setAttribute('aria-label', `Aller au groupe ${i + 1}`);
+        dot.addEventListener('click', () => {
+          page = i;
+          update();
+        });
+        dotsWrap.appendChild(dot);
+      }
+    }
+
+    function update() {
+      const maxPage = totalPages() - 1;
+      page = Math.min(page, maxPage);
+      const cardWidth = cards[0].getBoundingClientRect().width;
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      const offset = page * perView * (cardWidth + gap);
+      track.style.transform = `translateX(-${offset}px)`;
+      prevBtn.disabled = page <= 0;
+      nextBtn.disabled = page >= maxPage;
+      Array.from(dotsWrap.children).forEach((d, i) => d.classList.toggle('active', i === page));
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (page > 0) {
+        page--;
+        update();
+      }
+    });
+    nextBtn.addEventListener('click', () => {
+      if (page < totalPages() - 1) {
+        page++;
+        update();
+      }
+    });
+
+    let touchStartX = 0;
+    let dragging = false;
+    viewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      dragging = true;
+    }, { passive: true });
+    viewport.addEventListener('touchend', (e) => {
+      if (!dragging) return;
+      dragging = false;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) < 40) return;
+      if (dx < 0 && page < totalPages() - 1) {
+        page++;
+        update();
+      } else if (dx > 0 && page > 0) {
+        page--;
+        update();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      const newPerView = window.innerWidth <= 880 ? 1 : 2;
+      if (newPerView !== perView) {
+        perView = newPerView;
+        page = 0;
+        buildDots();
+      }
+      update();
+    });
+
+    buildDots();
+    update();
+  }
+
   /* ---------- booking modal (ateliers page) ---------- */
   const modalOverlay = document.querySelector('.modal-overlay');
   if (modalOverlay) {
