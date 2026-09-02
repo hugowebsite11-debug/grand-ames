@@ -431,26 +431,56 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
 .page-hero .lede{max-width:620px;margin:16px auto 0;color:var(--ink-soft);}
 
 /* =========================================================
-   ATELIERS — animated 2-up carousel, portrait photos shown in full
+   ATELIERS — polaroids hanging from a clothesline on the pegboard wall
    ========================================================= */
-.carousel{padding:20px 0 110px;}
-.carousel-viewport{overflow:hidden;}
-.carousel-track{
-  display:flex;gap:36px;
-  transition:transform .6s cubic-bezier(.65,0,.35,1);
-  will-change:transform;
+.clothesline-wall{padding:30px 0 110px;}
+.clothesline-row{position:relative;margin-bottom:130px;}
+.clothesline-row:last-child{margin-bottom:20px;}
+.clothesline-wire{
+  position:absolute;top:36px;left:-4%;right:-4%;height:2px;
+  background:linear-gradient(90deg, transparent, var(--ink-soft) 6%, var(--ink-soft) 94%, transparent);
+  opacity:.6;
 }
-.carousel-card{
-  flex:0 0 calc(50% - 18px);
-  background:var(--paper);box-shadow:var(--shadow-card);
-  display:flex;overflow:hidden;
+.clothesline-photos{
+  position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding-top:36px;
 }
-.carousel-card-photo{
-  flex:0 0 42%;position:relative;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--violet-light);max-height:640px;
+.polaroid{
+  display:block;flex:1 1 0;max-width:280px;
+  background:var(--white);
+  padding:14px 14px 40px;
+  box-shadow:0 16px 32px -14px rgba(46,34,51,.4);
+  transition:transform .3s ease, box-shadow .3s ease;
+  position:relative;
 }
-.carousel-card-photo img{width:100%;height:100%;object-fit:contain;}
+.polaroid, .polaroid.reveal.is-visible{transform:rotate(var(--rot,0deg));}
+.polaroid:hover{transform:rotate(0deg) translateY(-6px);box-shadow:0 22px 42px -16px rgba(46,34,51,.5);}
+.polaroid-clip{
+  position:absolute;top:-14px;left:50%;margin-left:-11px;
+  width:22px;height:26px;background:var(--yellow);border-radius:3px;
+  box-shadow:0 3px 6px rgba(0,0,0,.25);
+}
+.polaroid-clip::before{
+  content:"";position:absolute;top:6px;left:50%;margin-left:-4px;
+  width:8px;height:8px;border-radius:50%;background:rgba(46,34,51,.18);
+}
+.polaroid img{width:100%;height:260px;object-fit:cover;display:block;}
+.polaroid-caption{
+  display:block;text-align:center;margin-top:14px;
+  font-family:var(--font-eyebrow);font-size:1rem;color:var(--ink);line-height:1.2;
+}
+.polaroid-caption small{display:block;font-family:var(--font-body);font-size:.68rem;color:var(--violet-dark);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-top:4px;}
+
+@media (max-width:880px){
+  .clothesline-wire{display:none;}
+  .clothesline-photos{flex-wrap:wrap;justify-content:center;padding-top:0;}
+  .polaroid{flex:0 0 calc(50% - 12px);max-width:none;}
+  .clothesline-row{margin-bottom:20px;}
+}
+@media (max-width:480px){
+  .polaroid{flex:0 0 100%;}
+}
+
+/* shared bits reused on the single experience pages */
 .atelier-badge{
   position:absolute;top:16px;left:16px;
   background:var(--yellow);color:var(--violet-dark);
@@ -458,37 +488,37 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
   padding:7px 13px;border-radius:0;
 }
 .atelier-badge.complet{background:var(--violet-dark);color:var(--yellow);}
-.carousel-card-body{padding:28px 30px;flex:1;display:flex;flex-direction:column;min-width:0;}
-.carousel-card-body h3{font-size:1.3rem;margin-bottom:.3em;}
-.carousel-card-body p{color:var(--ink-soft);font-size:.9rem;flex:1;}
 .atelier-meta{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-soft);margin-bottom:10px;font-weight:700;}
 .atelier-meta span{display:inline-flex;align-items:center;gap:6px;}
-.atelier-foot{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:16px;padding-top:16px;border-top:1px dashed var(--line);}
+.atelier-foot{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:20px;padding-top:20px;border-top:1px dashed var(--line);}
 .price-block{line-height:1.3;}
 .price-block .price{font-weight:800;font-size:1.1rem;}
 .price-block .price-lga{font-size:.78rem;color:var(--violet-dark-ink);font-weight:700;}
 .price-block .acompte{font-size:.72rem;color:var(--ink-soft);}
 
-.carousel-nav{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:36px;}
-.carousel-btn{
-  width:46px;height:46px;border:1.5px solid var(--ink);background:var(--white);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;line-height:1;cursor:pointer;color:var(--ink);
-  transition:background .2s ease, color .2s ease;
+/* =========================================================
+   single experience page — product-page layout (image left, info right)
+   ========================================================= */
+.experience-page{display:flex;min-height:100vh;}
+.experience-media{flex:1 1 50%;position:relative;min-height:420px;}
+.experience-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.experience-info{
+  flex:1 1 50%;padding:150px 60px 70px;
+  display:flex;flex-direction:column;justify-content:center;max-width:640px;
 }
-.carousel-btn:hover:not(:disabled){background:var(--ink);color:var(--white);}
-.carousel-btn:disabled{opacity:.3;cursor:not-allowed;}
-.carousel-dots{display:flex;gap:9px;}
-.carousel-dot{
-  width:9px;height:9px;border-radius:50%;background:var(--line);border:0;cursor:pointer;padding:0;
-  transition:background .2s ease, transform .2s ease;
+.experience-back{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-body);font-weight:700;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-soft);margin-bottom:22px;
 }
-.carousel-dot.active{background:var(--violet-dark);transform:scale(1.3);}
-
-@media (max-width:880px){
-  .carousel-card{flex:0 0 100%;flex-direction:column;}
-  .carousel-card-photo{max-height:360px;}
-  .carousel-track{gap:24px;}
+.experience-back:hover{color:var(--ink);}
+.experience-info .atelier-badge{position:static;display:inline-block;margin-bottom:16px;align-self:flex-start;}
+.experience-info h1{font-size:clamp(1.9rem,3vw,2.5rem);margin-bottom:.4em;}
+.experience-info p{color:var(--ink-soft);}
+@media (max-width:900px){
+  .experience-page{flex-direction:column;}
+  .experience-media{min-height:340px;}
+  .experience-info{padding:44px 28px 60px;max-width:none;}
 }
 
 /* legend / filter bar */
