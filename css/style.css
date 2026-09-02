@@ -239,10 +239,10 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
    hero un-pins and the card swaps to sitting in normal flow at that exact same spot —
    both states use the same "centred on the boundary via translateY" trick so the
    hand-off is pixel-exact, no jump. */
-.intro{padding:0 24px 110px;text-align:center;position:relative;}
+.intro{padding:0 24px 20px;text-align:center;position:relative;}
 .intro-card{
   position:relative;z-index:2;
-  max-width:660px;margin:0 auto;
+  max-width:660px;margin:0 auto -210px;
   background:var(--white);
   padding:56px 50px;
   box-shadow:0 24px 60px -20px rgba(0,0,0,.3);
