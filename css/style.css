@@ -6,7 +6,7 @@
    The grid/quadrillage pegboard layout stays as before, just recolored.
    ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Jost:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500;600;700&display=swap');
 
 :root{
   /* charte colors */
@@ -26,6 +26,7 @@
   /* type */
   --font-display:'Instrument Serif', serif;
   --font-script:'Instrument Serif', serif;
+  --font-eyebrow:'EB Garamond', serif;
   --font-body:'Jost', sans-serif;
 
   /* fx */
@@ -108,8 +109,9 @@ section{position:relative;}
 
 /* ---------- eyebrow / script accents ---------- */
 .eyebrow{
-  font-family:var(--font-script);
+  font-family:var(--font-eyebrow);
   font-style:italic;
+  font-weight:500;
   font-size:1.3rem;
   color:var(--violet-dark);
   display:inline-block;
