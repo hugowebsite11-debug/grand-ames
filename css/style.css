@@ -709,11 +709,13 @@ body.dark-hero .site-header.scrolled .burger span{background:var(--violet-dark);
   overflow:hidden;
 }
 .retreat-card-media{
+  position:relative;overflow:hidden;
   background:var(--violet-light);
   display:flex;align-items:center;justify-content:center;
   min-height:560px;padding:40px;text-align:center;
   color:var(--violet-dark-ink);font-family:var(--font-script);font-style:italic;font-size:1.3rem;
 }
+.retreat-card-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .retreat-card-copy{padding:56px 50px;}
 .retreat-card-copy .tag{margin-bottom:16px;}
 .retreat-card-copy p{color:var(--ink-soft);margin-bottom:26px;}
